@@ -1,0 +1,51 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+<!-- Uses a transparent header that draws on top of the layout's background -->
+<style>
+
+.demo-layout-transparent {
+  background: url('/images/holidays.jpg') center / cover;
+}
+.demo-layout-transparent .mdl-layout__header,
+.demo-layout-transparent .mdl-layout__drawer-button {
+  /* This background is dark, so we set text to white. Use 87% black instead if
+     your background is light. */
+  color: white;
+}
+</style>
+
+<div class="demo-layout-transparent mdl-layout mdl-js-layout">
+  <header class="mdl-layout__header mdl-layout__header--transparent">
+    <div class="mdl-layout__header-row">
+      <!-- Title -->
+      <span class="mdl-layout-title">
+	  <img class="android-logo-image" src="/images/car.png">
+	  </span>
+      <!-- Add spacer, to align navigation to the right -->
+      <div class="mdl-layout-spacer"></div>
+          <!-- Navigation -->
+		  <nav class="mdl-navigation">
+              <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">Phones</a>
+              <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">Tablets</a>
+              <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">Wear</a>
+              <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">TV</a>
+              <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">Auto</a>
+              <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">One</a>
+              <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">Play</a>
+            </nav>
+    </div>
+  </header>
+  <div class="mdl-layout__drawer">
+    <span class="mdl-layout-title">Title</span>
+    <nav class="mdl-navigation">
+      <a class="mdl-navigation__link" href="">Link</a>
+      <a class="mdl-navigation__link" href="">Link</a>
+      <a class="mdl-navigation__link" href="">Link</a>
+      <a class="mdl-navigation__link" href="">Link</a>
+    </nav>
+  </div>
+  <main class="mdl-layout__content">
+  </main>
+</div>
+{% endblock %}
