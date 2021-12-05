@@ -1,6 +1,7 @@
 const express = require('express');
-let router = express.Router();
-let User = require('../models/user');
+const router = express.Router();
+let Commentary = require('../models/commentary');
+
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
