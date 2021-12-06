@@ -16,7 +16,7 @@ const carSchema = new Schema({
         ref: 'brands'
     },
     color: {
-        type: Number,
+        type: String,
         required: false
     },
     price: {
@@ -38,5 +38,17 @@ const carSchema = new Schema({
 })
 
 const Car = mongoose.model('cars', carSchema);
+// const data = [{
+//    registered: '123',
+//   color: 'red',
+//     price : '124',
+//     brand: {name: 'BMW'}
+// },{
+//    registered: '123',
+//    name: 'BMW',
+//    color: 'red',
+//    price : '124',
 
+ //}];
+// Car.collection.insertMany(data);
 module.exports = Car;

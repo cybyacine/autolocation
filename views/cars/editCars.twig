@@ -1,0 +1,33 @@
+<html>
+<head><title>Liste des contacts</title></head>
+<body><center>
+<table >
+<form action="/cars/update" method="post">
+<tr>
+	<td>Registered </td>
+	<td><input type="text" name="registered" id="registered" value="{{data.registered}}" /> </td>
+</tr>
+<tr>
+	<td>Color</td>
+	<td><input type="text" name="color" id="color" value="{{data.color}}"/>
+	<input type="hidden" name="id" id="id" value="{{data._id}}"/>
+	 </td>
+</tr>
+<tr>
+	<td>Brand </td>
+	<td><input type="text" name="name" id="name" value="{{data.name}}" /> </td>
+</tr>
+<tr>
+	<td>Price </td>
+	<td><input type="text" name="price" id="prix" value="{{data.price}}" /> </td>
+</tr>
+<tr>
+	<td colspan="2" align="center">
+	<input type="submit" value="Save" />
+	</td>
+</tr>
+</form>
+</table>
+</center>
+</body>
+</html>
