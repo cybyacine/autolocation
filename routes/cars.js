@@ -19,6 +19,7 @@ router.post('/addCars', function(req, res, next){
       color : req.body.color,
      // brand : req.body.brand,
       name : req.body.name,
+      photos : req.body.photos,
       price : req.body.price
   }
   )
