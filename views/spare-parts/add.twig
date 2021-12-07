@@ -1,0 +1,65 @@
+{% extends 'index.twig' %}
+
+{% block content %}
+    <div class="mdl-typography--text-center">
+        <div class="mdl-typography--display-2-color-contrast">
+            <h4>Les pièces détachées</h4>
+        </div>
+        <div class="display-card">
+            <div class="mdl-card">
+                <div class="error">{{ error }}</div>
+                <form action="/brands/add" method="post" enctype="multipart/form-data">
+                    <div class="flex-row">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" id="name" name="name">
+                            <label class="mdl-textfield__label" for="name">Nom de pièce</label>
+                        </div>
+                    </div>
+                    <div class="flex-row">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <select class="mdl-textfield__input" id="car" name="car">
+                                {% for car in cars %}
+                                    <option>{{ car.brand }} - {{ car.name }}</option>
+                                {% endfor %}
+                            </select>
+                            <label class="mdl-textfield__label" for="name">Voiture</label>
+                        </div>
+                    </div>
+                    <div class="flex-row">
+                        <button type="button" style="display:block;width:120px; height:30px;"
+                                onclick="document.getElementById('logo').click()">Choisir logo
+                        </button>
+                        <input type="file" id="logo" name="logo" accept="image/*" onchange="onchangelogo()"
+                               style="display:none">
+                        <p id="filename"></p>
+                    </div>
+                    <img id="imgshow" src="">
+                    <br>
+                    <div class="flex-row">
+                        <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+                            <i class="material-icons">add</i>
+                            ajouter
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        function onchangelogo() {
+            document.getElementById("filename").innerText = document.getElementById("logo").files[0].name;
+            console.log(document.getElementById("logo").files[0]);
+        }
+        $('document').ready(function () {
+            $("#logo").change(function () {
+                if (this.files && this.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('#imgshow').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(this.files[0]);
+                }
+            });
+        });
+    </script>
+{% endblock %}
