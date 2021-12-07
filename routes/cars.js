@@ -61,18 +61,23 @@ router.post('/update', function(req, res, next){
     });
   res.redirect("/cars/");
 })
-router.get('/recherche', function(req, res, next){
- 
-  res.render("listAnnonce.twig");
-})
+router.get('/recherche', async function(req, res, next) {
+  const cars = await Car.find({})
+      .populate('brand');
+  console.log(cars);
+ // res.json(cars);
+ res.render('cars/listCars.twig', {cars});
+ //res.render("cars/index.twig");
+});
+
 router.post('/rechercher', function(req, res, next){
-  var marque = req.body.marque;
-  var couleur = req.body.couleur;
-  console.log(marque);
-  Automobile.find({ marque: marque ,couleur: couleur}, function (err, data){
-      console.log(data);
-      //res.json(data);
-      res.render('listAnnonce.twig', {data});
+  var name = req.body.name;
+  var color = req.body.color;
+  console.log(name);
+  Car.find({ name: name ,color: color}, function (err, cars){
+      console.log(cars);
+     // res.json(cars);
+     res.render('cars/listCars.twig', {cars});
     });
 })
 router.get('/listB', function(req, res, next) {

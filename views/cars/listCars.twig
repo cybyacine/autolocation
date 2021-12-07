@@ -152,7 +152,7 @@ var RFQ_DATA = {"ajax_url":"https:\/\/premium-rentcar.com\/wp-admin\/admin-ajax.
 <div class="shop-title-wrapper">
 <h1  class="entry-title">List of cars</h1>
 
-<div class="woodmart-show-categories"><a href="#">Categories</a></div><ul class="woodmart-product-categories has-product-count"><li class="cat-link shop-all-link"><a class="category-nav-link" href="https://premium-rentcar.com/vehicules/">
+<div class="woodmart-show-categories"></div><ul class="woodmart-product-categories has-product-count"><li class="cat-link shop-all-link"><a class="category-nav-link" ">
 <span class="category-summary">
 <span class="category-name">All</span>
 <span class="category-products-count">
@@ -161,6 +161,23 @@ var RFQ_DATA = {"ajax_url":"https:\/\/premium-rentcar.com\/wp-admin\/admin-ajax.
 </span>
 				
 </div></div></div></div>
+<table >
+<form action="/cars/rechercher" method="post" >
+<tr>
+	<td>Brand </td>
+	<td><input type="text" name="name" id="name" /> </td>
+</tr>
+<tr>
+	<td>Color </td>
+	<td><input type="text" name="color" id="color" /> </td>
+</tr>
+<tr>
+	<td colspan="2" align="center">
+	<input type="submit" value="Rechercher" />
+	</td>
+</tr>
+</form>
+</table>
  {% for item in cars %} 
 <div class="woodmart-active-filters">
 	</div>
@@ -204,8 +221,6 @@ var RFQ_DATA = {"ajax_url":"https:\/\/premium-rentcar.com\/wp-admin\/admin-ajax.
 					</ul>
 				</div>
 			</div>
-		  <a href="/cars/update/{{item._id}}" >Edit
-        <a href="/cars/delete/{{item._id}}" >remove
 
 		</div>
 	</div>
