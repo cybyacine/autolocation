@@ -7,7 +7,7 @@ const sparePartSchema = new Schema({
         required: true,
         index: true
     },
-    name: {
+    part: {
         type: String,
         required: false
     },
@@ -28,7 +28,8 @@ const sparePartSchema = new Schema({
         required: false
     },
     photos: [{
-        type: String
+        type: String,
+        required: false
     }]
 }, {
     timestamps: true,

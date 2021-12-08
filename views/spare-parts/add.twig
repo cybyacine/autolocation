@@ -8,29 +8,50 @@
         <div class="display-card">
             <div class="mdl-card">
                 <div class="error">{{ error }}</div>
-                <form action="/brands/add" method="post" enctype="multipart/form-data">
+                <form action="/spareParts/add" method="post" enctype="multipart/form-data">
                     <div class="flex-row">
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" type="text" id="name" name="name">
-                            <label class="mdl-textfield__label" for="name">Nom de pièce</label>
+                            <select class="mdl-textfield__input" id="category" name="category"></select>
+                            <label class="mdl-textfield__label" for="category">Catégorie</label>
+                        </div>
+                    </div>
+                    <div class="flex-row">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <select class="mdl-textfield__input" id="part" name="part"></select>
+                            <label class="mdl-textfield__label" for="part">Pièce</label>
                         </div>
                     </div>
                     <div class="flex-row">
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                             <select class="mdl-textfield__input" id="car" name="car">
-                                {% for car in cars %}
-                                    <option>{{ car.brand }} - {{ car.name }}</option>
-                                {% endfor %}
+                                {% if cars is not null and cars is not empty %}
+                                    {% for car in cars %}
+                                        <option value="{{ car._id }}">{{ car.brand.name }} - {{ car.name }}</option>
+                                    {% endfor %}
+                                {% endif %}
                             </select>
-                            <label class="mdl-textfield__label" for="name">Voiture</label>
+                            <label class="mdl-textfield__label" for="car">Voiture</label>
                         </div>
                     </div>
                     <div class="flex-row">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="number" id="price" name="price">
+                            <label class="mdl-textfield__label" for="price">Prix unitaire</label>
+                        </div>
+                    </div>
+
+                    <div class="flex-row">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="number" id="qty" name="qty">
+                            <label class="mdl-textfield__label" for="qty">Quantité disponible</label>
+                        </div>
+                    </div>
+
+                    <div class="flex-row">
                         <button type="button" style="display:block;width:120px; height:30px;"
-                                onclick="document.getElementById('logo').click()">Choisir logo
+                                onclick="document.getElementById('photo').click()">Choisir images
                         </button>
-                        <input type="file" id="logo" name="logo" accept="image/*" onchange="onchangelogo()"
-                               style="display:none">
+                        <input type="file" id="photo" name="photo" multiple accept="image/*" onchange="onChangePhoto()" style="display:none">
                         <p id="filename"></p>
                     </div>
                     <img id="imgshow" src="">
@@ -46,12 +67,45 @@
         </div>
     </div>
     <script>
-        function onchangelogo() {
-            document.getElementById("filename").innerText = document.getElementById("logo").files[0].name;
-            console.log(document.getElementById("logo").files[0]);
+
+        function onChangePhoto() {
+            document.getElementById("filename").innerText = document.getElementById("photo").files[0].name;
+            console.log(document.getElementById("photo").files[0]);
         }
-        $('document').ready(function () {
-            $("#logo").change(function () {
+
+        $("document").ready(function() {
+            let partsByCategories = {{ parts|json_encode() }};
+            partsByCategories.map(partsByCategory => partsByCategory.Category)
+                .forEach(category => {
+                    var opt = document.createElement("option");
+                    opt.text = category;
+                    opt.value = category;
+                    document.getElementById("category").add(opt);
+                });
+            document.getElementById("category").selectedIndex = "0";
+            partsByCategories[0].Parts.forEach(part => {
+                    var opt = document.createElement("option");
+                    opt.text = part;
+                    opt.value = part;
+                    document.getElementById("part").add(opt);
+                });
+            document.getElementById("part").selectedIndex = "0";
+
+            $("#category").change(function() {
+                let partsByCategories = {{ parts|json_encode() }};
+                document.getElementById("part").innerText = null;                
+                partsByCategories.filter(partsByCategory => partsByCategory.Category == this.value)[0]
+                    .Parts.forEach(part => {
+                        var opt = document.createElement("option");
+                        opt.text = part;
+                        opt.value = part;
+                        document.getElementById("part").add(opt);
+                    });
+            });
+        });
+
+        $('document').ready(function () {                    
+            $("#photo").change(function () {
                 if (this.files && this.files[0]) {
                     var reader = new FileReader();
                     reader.onload = function (e) {
