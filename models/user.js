@@ -67,15 +67,15 @@ userSchema.pre('save', function (next) {
 
 const User = mongoose.model('users', userSchema);
 
-const password = bcrypt.hashSync('test123', salt);
-const data = [{
-    email: 'halim@gmail.com',
-    full_name: 'halimjmila',
-    password: password,
-    age: 27,
-    phone: '24788917',
-    role: 'admin'
-}];
-User.collection.insertMany(data);
+//const password = bcrypt.hashSync('test123', salt);
+//const data = [{
+//    email: 'halim@gmail.com',
+//    full_name: 'halimjmila',
+//    password: password,
+//   age: 27,
+//   phone: '24788917',
+//   role: 'admin'
+//}];
+//User.collection.insertMany(data);
 
 module.exports = User;

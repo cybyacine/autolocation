@@ -61,10 +61,11 @@
       Color: {{item.color}}
     </a>
   </div>
-</div>
-<form style="display: inline-block;" method="post" action = "">
+
+<form style="display: inline-block;" method="post" action = "/cars/like/{{item._id}}">
 <input type="hidden" name="like" value="#numero_du_post" />
 <input type="submit" value="Like" />
 </form>
+</div>
  {% endfor %} 
 </body>

@@ -2,6 +2,8 @@ const express = require('express');
 let router = express.Router();
 let Car = require('../models/car');
 let Brand = require('../models/brand');
+let Interaction = require('../models/interaction');
+const mongoose = require('mongoose');
 /* GET users listing. */
 router.get('/', async function(req, res, next) {
   const cars = await Car.find({})
@@ -89,4 +91,17 @@ router.get('/listB', function(req, res, next) {
     res.render('cars/addCars.twig', {data});
   });
 });
+router.post('/like/:id', function(req, res, next){
+  var id = req.params.id;
+  var inter = new Interaction(
+      {
+      type: 'like',
+      user :mongoose.Types.ObjectId("61acdee3e6e70a6f4f641d28"),
+      car : mongoose.Types.ObjectId(id)
+
+  }
+  )
+  inter.save();
+ //res.redirect("cars/listCars.twig");
+})
 module.exports = router;
