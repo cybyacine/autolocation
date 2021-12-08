@@ -20,6 +20,7 @@
   color: #fff;
 }
 </style>
+
 </head>
 <body>
 <h1><strong>Lost Of Cars</strong></h1>
@@ -35,7 +36,7 @@
 </tr>
 <tr>
 	<td colspan="2" align="center">
-	<input type="submit" value="Rechercher" />
+	<input type="submit" value="Search" />
 	</td>
 </tr>
 </form>
@@ -61,5 +62,9 @@
     </a>
   </div>
 </div>
+<form style="display: inline-block;" method="post" action = "">
+<input type="hidden" name="like" value="#numero_du_post" />
+<input type="submit" value="Like" />
+</form>
  {% endfor %} 
 </body>
