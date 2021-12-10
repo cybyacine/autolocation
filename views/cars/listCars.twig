@@ -1,7 +1,5 @@
-
-<!DOCTYPE html>
-<html lang="fr-FR">
-<head>
+{% extends 'index.twig' %}
+{% block content %}
 <!--<form method="post" enctype="multipart/form-data" action="/auto/upload">
     <input type="file" name="file">
     <input type="submit" value="Submit">
@@ -21,9 +19,9 @@
 }
 </style>
 
-</head>
+
 <body>
-<h1><strong>Lost Of Cars</strong></h1>
+<h1><strong>List Of Cars</strong></h1>
 <table >
 <form action="/cars/rechercher" method="post" >
 <tr>
@@ -45,7 +43,7 @@
  {% for item in cars %} 
 <div class="demo-card-wide mdl-card mdl-shadow--2dp">
   <div class="mdl-card__title">
-    <h2 class="mdl-card__title-text">Welcome</h2>
+    <h2 class="mdl-card__title-text" hidden>Welcome</h2>
   </div>
   <div class="mdl-card__supporting-text">
   Brand : {{item.name}}
@@ -68,4 +66,4 @@
 </form>
 </div>
  {% endfor %} 
-</body>
+{% endblock %}
