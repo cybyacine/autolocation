@@ -2,14 +2,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const sparePartSchema = new Schema({
-    registered: {
-        type: String,
-        required: true,
-        index: true
-    },
     part: {
         type: String,
-        required: false
+        required: true
     },
     car: {
         type: mongoose.Schema.Types.ObjectId,

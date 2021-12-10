@@ -1,0 +1,100 @@
+{% extends 'index.twig' %}
+
+{% block content %}
+    <div class="mdl-typography--text-center">
+        <div class="mdl-typography--display-2-color-contrast">
+            <h4>{{ sparePart.part }}</h4>
+            <a href="/spareParts" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+                <i class="material-icons">arrow_back</i>
+                Retour
+            </a>
+        </div>
+        <div class="gallery">
+            {% if sparePart.photos is not null and sparePart.photos is not empty %}
+                {% for photo in sparePart.photos  %}
+                    <div>
+                        <img src="{{ photo }}"/>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <div class="container-grid" style="background-color: #DEDEDE;">
+            <div class="mdl-grid">
+                <div class="mdl-cell mdl-cell--6-col">
+                    <div class="mdl-grid">
+                        <div class="mdl-cell mdl-cell--4-col">
+                            <h5>Catégorie</h5>
+                        </div>
+                        <div class="mdl-cell mdl-cell--4-col">
+                            <h6>{{ sparePart.category }}</h6>
+                        </div>
+                    </div>    
+
+                    <div class="mdl-grid">
+                        <div class="mdl-cell mdl-cell--4-col">
+                            <h5>Voiture</h5>
+                        </div>
+                        <div class="mdl-cell mdl-cell--4-col">
+                            <h6>{{ sparePart.car.brand.name }} / {{ sparePart.car.name }}</h6>
+                        </div>
+                    </div>    
+                </div>    
+
+                <div class="mdl-cell mdl-cell--6-col">
+                    <div class="mdl-grid">
+                        <div class="mdl-cell mdl-cell--4-col">
+                            <h5>Prix HT</h5>
+                        </div>
+                        <div class="mdl-cell mdl-cell--4-col">
+                            <h6>{{ sparePart.price }} DT</h6>
+                        </div>
+                    </div>    
+
+                    <div class="mdl-grid">
+                        <div class="mdl-cell mdl-cell--4-col">
+                            <h5>Quantité</h5>
+                        </div>
+                        <div class="mdl-cell mdl-cell--4-col">
+                            <h6>{{ sparePart.qty }} pièce(s)</h6>
+                        </div>
+                    </div>
+                </div>    
+            </div>    
+        </div>
+
+
+        <div class="wrapper">
+            <ul class="demo-list-item mdl-list">
+                {% if comments is not null and comments is not empty %}
+                    {% for comment in comments %}
+                        <li class="mdl-list__item">
+                            <span class="mdl-list__item-primary-content">
+                                {{ comment.content }}
+                            </span>
+                        </li>
+                    {% endfor %}
+                {% endif %}
+                <li class="mdl-list__item">
+                    <span class="mdl-list__item-primary-content">
+                        <input class="mdl-textfield__input" type="text" id="comment">
+                        <label class="mdl-textfield__label" for="comment">Votre commentaire...</label>
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        var dialog = document.querySelector('dialog');
+        var showModalButton = document.querySelector('.show-modal');
+        if (! dialog.showModal)
+            dialogPolyfill.registerDialog(dialog);
+        showModalButton.addEventListener('click', function() {
+            dialog.showModal();
+        });
+        dialog.querySelector('.close').addEventListener('click', function() {
+            dialog.close();
+        });
+    </script>
+{% endblock %}

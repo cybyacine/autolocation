@@ -58,3 +58,25 @@
     font-size: 14px;
     font-weight: 500;
 }
+
+.gallery {
+    background-color: linen;
+    display: grid;
+    grid-template-columns:repeat(3, 32.8%);
+    grid-auto-rows: minmax(100px ,auto);
+    grid-column-gap: 0.3%;
+    grid-row-gap: 0.2%;
+    justify-items: stretch;
+    padding-bottom: 1%;
+}
+.gallery > div {
+    margin: 5px;
+    box-shadow: 5px 5px 5px grey;
+}
+.gallery > div > img {
+    /* Resize images */
+    width: 100%;
+    height: 100%;
+    /* proportionally... */
+    object-fit: contain;
+}

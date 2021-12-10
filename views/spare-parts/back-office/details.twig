@@ -1,0 +1,100 @@
+{% extends 'index.twig' %}
+
+{% block content %}
+    <div class="mdl-typography--text-center">
+        <div class="mdl-typography--display-2-color-contrast">
+            <h4>{{ sparePart.part }}</h4>
+            <a href="/spareParts/backOffice" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+                <i class="material-icons">arrow_back</i>
+                Retour
+            </a>
+            <a href="/spareParts/backOffice/edit/{{ sparePart._id }}" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+                <i class="material-icons">edit</i>
+                Editer
+            </a>
+            <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored show-modal">
+                <i class="material-icons">delete</i>
+                Supprimer
+            </button>
+        </div>
+        <div class="gallery">
+            {% if sparePart.photos is not null and sparePart.photos is not empty %}
+                {% for photo in sparePart.photos  %}
+                    <div>
+                        <img src="{{ photo }}"/>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <div class="container-grid" style="background-color: #DEDEDE;" >
+            <div class="mdl-grid">
+                <div class="mdl-cell mdl-cell--6-col">
+                    <div class="mdl-grid">
+                        <div class="mdl-cell mdl-cell--4-col">
+                            <h5>Catégorie</h5>
+                        </div>
+                        <div class="mdl-cell mdl-cell--4-col">
+                            <h6>{{ sparePart.category }}</h6>
+                        </div>
+                    </div>    
+
+                    <div class="mdl-grid">
+                        <div class="mdl-cell mdl-cell--4-col">
+                            <h5>Voiture</h5>
+                        </div>
+                        <div class="mdl-cell mdl-cell--4-col">
+                            <h6>{{ sparePart.car.brand.name }} / {{ sparePart.car.name }}</h6>
+                        </div>
+                    </div>    
+                </div>    
+
+                <div class="mdl-cell mdl-cell--6-col">
+                    <div class="mdl-grid">
+                        <div class="mdl-cell mdl-cell--4-col">
+                            <h5>Prix HT</h5>
+                        </div>
+                        <div class="mdl-cell mdl-cell--4-col">
+                            <h6>{{ sparePart.price }} DT</h6>
+                        </div>
+                    </div>    
+
+                    <div class="mdl-grid">
+                        <div class="mdl-cell mdl-cell--4-col">
+                            <h5>Quantité</h5>
+                        </div>
+                        <div class="mdl-cell mdl-cell--4-col">
+                            <h6>{{ sparePart.qty }} pièce(s)</h6>
+                        </div>
+                    </div>
+                </div>    
+            </div>    
+        </div>
+    </div>
+
+    <dialog class="mdl-dialog">
+        <div class="mdl-dialog__content">
+            <p>
+                Vous voulez vraiment supprimer cette pièce ?
+            </p>
+        </div>
+        <div class="mdl-dialog__actions mdl-dialog__actions">
+            <form action="/spareParts/backOffice/delete/{{ sparePart._id }}" method="post">
+                <button type="submit" class="mdl-button">Confirmer</button>
+            </form>
+            <button type="button" class="mdl-button close">Annuler</button>
+        </div>
+    </dialog>
+    <script>
+        var dialog = document.querySelector('dialog');
+        var showModalButton = document.querySelector('.show-modal');
+        if (! dialog.showModal)
+            dialogPolyfill.registerDialog(dialog);
+        showModalButton.addEventListener('click', function() {
+            dialog.showModal();
+        });
+        dialog.querySelector('.close').addEventListener('click', function() {
+            dialog.close();
+        });
+    </script>
+{% endblock %}

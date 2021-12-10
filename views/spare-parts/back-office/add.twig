@@ -8,7 +8,7 @@
         <div class="display-card">
             <div class="mdl-card">
                 <div class="error">{{ error }}</div>
-                <form action="/spareParts/add" method="post" enctype="multipart/form-data">
+                <form action="/spareParts/backOffice/add" method="post" enctype="multipart/form-data">
                     <div class="flex-row">
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                             <select class="mdl-textfield__input" id="category" name="category"></select>
@@ -49,17 +49,24 @@
 
                     <div class="flex-row">
                         <button type="button" style="display:block;width:120px; height:30px;"
-                                onclick="document.getElementById('photo').click()">Choisir images
+                                onclick="document.getElementById('photos').click()">Choisir images
                         </button>
-                        <input type="file" id="photo" name="photo" multiple accept="image/*" onchange="onChangePhoto()" style="display:none">
-                        <p id="filename"></p>
+                        <input type="file" id="photos" name="photos" multiple accept="image/*" style="display:none">
                     </div>
-                    <img id="imgshow" src="">
+                    <div class="flex-row">
+                        <div class="gallery">
+
+                        </div>
+                    </div>
                     <br>
                     <div class="flex-row">
+                        <a href="/spareParts/backOffice" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+                            <i class="material-icons">arrow_back</i>
+                            Retour
+                        </a> &nbsp;&nbsp;&nbsp;&nbsp; 
                         <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
-                            <i class="material-icons">add</i>
-                            ajouter
+                            <i class="material-icons">save</i>
+                            Sauvegarder
                         </button>
                     </div>
                 </form>
@@ -68,10 +75,9 @@
     </div>
     <script>
 
-        function onChangePhoto() {
-            document.getElementById("filename").innerText = document.getElementById("photo").files[0].name;
-            console.log(document.getElementById("photo").files[0]);
-        }
+        {# function onChangePhoto() {
+            document.getElementById("filesnames").innerText = '- ' + Object.values(document.getElementById("photo").files).map(file => file.name).join('\n- ');
+        } #}
 
         $("document").ready(function() {
             let partsByCategories = {{ parts|json_encode() }};
@@ -105,13 +111,19 @@
         });
 
         $('document').ready(function () {                    
-            $("#photo").change(function () {
-                if (this.files && this.files[0]) {
-                    var reader = new FileReader();
-                    reader.onload = function (e) {
-                        $('#imgshow').attr('src', e.target.result);
-                    }
-                    reader.readAsDataURL(this.files[0]);
+            $("#photos").change(function () {
+                if (this.files) {
+                    Object.values(this.files).forEach(file => {
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            var div = document.createElement('div');
+                            var img = document.createElement('img');
+                            img.src = e.target.result;
+                            div.appendChild(img);
+                            $('.gallery').append(div);
+                        }
+                        reader.readAsDataURL(file);
+                    });
                 }
             });
         });

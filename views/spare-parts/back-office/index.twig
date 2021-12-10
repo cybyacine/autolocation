@@ -19,7 +19,7 @@
                         </span>
                         </div>
                         <div class="mdl-card__actions mdl-card--border">
-                            <a href="spareParts/details/{{ sparePart._id }}" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                            <a href="/spareParts/backOffice/details/{{ sparePart._id }}" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
                                 <i class="material-icons">list</i> Voir détails
                             </a>
                         </div>
@@ -32,5 +32,11 @@
                 {% endfor %}
             {% endif %}
         </div>
+    </div>
+    <div class="content-bottom">
+        <a href="/spareParts/backOffice/add" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+            <i class="material-icons">add</i>
+            ajouter pièce détachée
+        </a>
     </div>
 {% endblock %}
