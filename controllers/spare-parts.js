@@ -19,6 +19,16 @@ async function findSparePartById(id) {
   return sparePart;
 }
 
+async function searchByCreteria(req, res, next) {
+  console.log(req.body.search);
+  const sparePart = await SparePart.find({
+    $or: [
+      {part: { $regex: '.*' + req.body.search + '.*' }},      
+      {category: {$regex: '.*' + req.body.search + '.*'}}
+  ]}, null, {sort: {createdAt: -1}});
+  return sparePart;
+}
+
 async function allCars() {
   const cars = await Car.find({}).populate('brand');
   return cars;
@@ -72,5 +82,6 @@ module.exports = {
   deleteSparePart,
   findSparePartById,
   allSpareParts,
+  searchByCreteria,
   allCars
 };

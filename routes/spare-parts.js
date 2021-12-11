@@ -35,6 +35,12 @@ router.get("/details/:id", async function(req, res, next) {
   res.render("spare-parts/details", { sparePart, comments });
 });
 
+/* POST spare-parts search */
+router.post("/search/", async function(req, res, next) {
+  let spareParts = await SparePartController.searchByCreteria(req, res, next);
+   res.render("spare-parts/index", { spareParts });
+});
+
 /* GET spare-parts listing in back-office. */
 router.get("/backOffice/", async function(req, res, next) {
     let spareParts = await SparePartController.allSpareParts();
