@@ -1,0 +1,141 @@
+{% extends 'index.twig' %}
+
+{% block content %}
+    <div class="mdl-typography--text-center">
+        <div class="mdl-typography--display-2-color-contrast">
+            <h4>List of user</h4>
+        </div>
+    </div>
+    <div class="display-card">
+        <form action="/users/search" method="get">
+            <div class="flex-row">
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" value="{{ search | default('') }}" type="text" id="search" name="search">
+                    <label class="mdl-textfield__label" for="search">Search</label>
+                </div>
+                <button type="submit" style="height: 50px"
+                        class="mdl-button mdl-button--mini-icon mdl-js-button mdl-button--colored">
+                    <i class="material-icons">search</i>
+                </button>
+            </div>
+        </form>
+    </div>
+    <div class="display-card">
+        <table id="dataTable" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp dataTable">
+            <thead>
+            <tr role="row" class="sort-key">
+                <th class="mdl-data-table__cell--non-numeric sort-key">Email</th>
+                <th class="mdl-data-table__cell--non-numeric sort-key">Full name</th>
+                <th class="mdl-data-table__cell--non-numeric sort-key">Role</th>
+                <th class="mdl-data-table__cell--non-numeric sort-key">Age</th>
+                <th class="mdl-data-table__cell--non-numeric sort-key">Phone</th>
+                <th class="mdl-data-table__cell--non-numeric sort-key">Address</th>
+                <th class="mdl-data-table__cell--non-numeric sort-key">CreatedAt</th>
+                <th class="mdl-data-table__cell--non-numeric sort-key">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% if users is not null and users is not empty %}
+                {% for user in users %}
+                    <tr class="rowEditData odd sort-key" value="7924" role="row" title="">
+                        <td class="mdl-data-table__cell--non-numeric">{{ user.email }}</td>
+                        <td class="mdl-data-table__cell--non-numeric">{{ user.full_name }}</td>
+                        <td class="mdl-data-table__cell--non-numeric">{{ user.role }}</td>
+                        <td class="mdl-data-table__cell--non-numeric">{{ user.age }}</td>
+                        <td class="mdl-data-table__cell--non-numeric">{{ user.phone }}</td>
+                        <td class="mdl-data-table__cell--non-numeric">{{ user.address }}</td>
+                        <td class="mdl-data-table__cell--non-numeric">{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                        <td class="mdl-data-table__cell--non-numeric">
+                            {% if user.role != 'admin' %}
+                                <form method="post" action="users/delete/{{ user._id }}">
+                                    <button type="submit"
+                                            class="mdl-button mdl-button--mini-icon mdl-js-button mdl-button--colored">
+                                        <i class="material-icons button--delete">delete</i>
+                                    </button>
+                                </form>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+            </tbody>
+        </table>
+    </div>
+    <script>
+        $(function () {
+            $('#dataTable').DataTable({
+                "paging": false,
+                "info": false
+            });
+        });
+
+        $('thead th').each(function (column) {
+            $(this).addClass('sortable').click(function () {
+                var findSortKey = function ($cell) {
+                    var sk = $cell.find('.sort-key').text().toUpperCase() + ' ' + $cell.text().toUpperCase();
+                    var ik = parseInt(sk, 10);
+                    return ik != NaN ? ik : sk;
+                };
+                var sortDirection = $(this).is('.sorted-asc') ? -1 : 1;
+                //step back up the tree and get the rows with data
+                //for sorting
+                var $rows = $(this).parent().parent().parent().find('tbody tr').get();
+                //loop through all the rows and find
+                $.each($rows, function (index, row) {
+                    row.sortKey = findSortKey($(row).children('td').eq(column));
+                });
+                //compare and sort the rows alphabetically
+                $rows.sort(function (a, b) {
+                    if (a.sortKey < b.sortKey) return -sortDirection;
+                    if (a.sortKey > b.sortKey) return sortDirection;
+                    return 0;
+                });
+                //add the rows in the correct order to the bottom of the table
+                $.each($rows, function (index, row) {
+                    $('tbody').append(row);
+                    row.sortKey = null;
+                });
+                //identify the column sort order
+                $('th').removeClass('sorted-asc sorted-desc');
+                var $sortHead = $('th').filter(':nth-child(' + (column + 1) + ')');
+                sortDirection == 1 ? $sortHead.addClass('sorted-asc') : $sortHead.addClass('sorted-desc');
+                //identify the column to be sorted by
+                $('td').removeClass('sorted')
+                    .filter(':nth-child(' + (column + 1) + ')')
+                    .addClass('sorted');
+            });
+        });
+
+
+        //merge rows
+        $(".rowEditData").click(function (index) {
+            //highlight clicked row
+            if (this.className.indexOf("mergeSelect") != -1) {
+                this.className = this.oldClassName;
+            } else {
+                addClass(this, "mergeSelect");
+            }
+        });
+
+        //add selected class to row when clicked
+        function addClass(element, value) {
+            if (!element.className) {
+                element.className = value;
+            } else {
+                newClassName = element.className;
+                newClassName += " ";
+                newClassName += value;
+                element.className = newClassName;
+            }
+        } //end addClass
+
+        $("#mergeRows").click(function () {
+            var tr = document.getElementsByTagName('tr');
+            var merge = tr.className.indexOf('mergeSelect');
+            if (merge == -1) {
+                var mergeRows = $(this);
+            }
+            console.log(merge);
+        });
+    </script>
+{% endblock %}
