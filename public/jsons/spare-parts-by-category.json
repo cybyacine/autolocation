@@ -1,0 +1,65 @@
+[
+    {
+        "Category" : "Moteur",
+        "Parts" : [
+        "Embrayage", "Culasse", "Turbo", "Injecteur",
+        "Démarreur", "Filtre à air", "Bougie", "Filtre à carburant",
+        "kit de distribution"
+        ]
+    },
+    {
+        "Category" : "Échappement",
+        "Parts" : [
+            "Pot catalytique", "Silencieux"
+        ]
+    },
+    {
+        "Category" : "Train roulant",
+        "Parts" : [
+            "Rotules", "Cardans", "Amortisseurs", "Pneus", "Roulements"
+        ]
+    },
+    {
+        "Category" : "Éclairage",
+        "Parts" : [
+            "Verre de phare",  "Verre de feu", "Optique", "Ampoule"
+        ]
+    },
+    {
+        "Category" : "Climatisation",
+        "Parts" : [
+            "Compresseur", "Filtre d'habitacle"
+        ]
+    },
+    {
+        "Category" : "Chauffage/Ventilation",
+        "Parts" : [
+            "Radiateur", "Pulseur d'air", "Sonde", "Thermostat"
+        ]
+    },
+    {
+        "Category" : "Freinage",
+        "Parts" : [
+            "Plaquettes de frein", "Mâchoire", "Disque", "Câble de frein"
+        ]
+    },
+    {
+        "Category" : "Direction",
+        "Parts" : [
+            "Rotule de direction", "Bras de suspension", "Barre stabilisatrice"
+        ]
+    },
+    {
+        "Category" : "Carrosserie",
+        "Parts" : [
+            "Pare-choc avant", "Pare-choc arrière", "Rétroviseurs", "Bas de caisse",
+            "Portières", "Ailes", "Capot", "Hayon"
+        ]
+    },
+    {
+        "Category" : "Electricité",
+        "Parts" : [
+            "Batterie", "Fusible"
+        ]
+    }
+]

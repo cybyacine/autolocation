@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-let Commentary = require('../models/commentary');
+let Comment = require('../models/comment');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {

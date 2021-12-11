@@ -1,0 +1,73 @@
+
+{% extends 'index.twig' %}
+
+{% block content %}
+    <div class="mdl-typography--text-center">
+        <form action="/spareParts/backOffice/edit/{{ sparePart._id }}" method="post">
+            <div class="mdl-typography--display-2-color-contrast">
+                <h4>{{ sparePart.part }}</h4>
+                <a href="/spareParts/backOffice/details/{{ sparePart._id }}" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+                    <i class="material-icons">arrow_back</i>
+                    Retour
+                </a>
+                <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+                    <i class="material-icons">save</i>
+                    Sauvegarder
+                </button>
+            </div>
+
+            <div class="gallery">
+                {% if sparePart.photos is not null and sparePart.photos is not empty %}
+                    {% for photo in sparePart.photos  %}
+                        <div>
+                            <img src="{{ photo }}"/>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            <div class="container-grid" style="background-color: #DEDEDE;" >
+                <div class="mdl-grid">
+                    <div class="mdl-cell mdl-cell--6-col">
+                        <div class="mdl-grid">
+                            <div class="mdl-cell mdl-cell--4-col">
+                                <h5>Catégorie</h5>
+                            </div>
+                            <div class="mdl-cell mdl-cell--4-col">
+                                <h6>{{ sparePart.category }}</h6>
+                            </div>
+                        </div>    
+
+                        <div class="mdl-grid">
+                            <div class="mdl-cell mdl-cell--4-col">
+                                <h5>Voiture</h5>
+                            </div>
+                            <div class="mdl-cell mdl-cell--4-col">
+                                <h6>{{ sparePart.car.brand.name }} / {{ sparePart.car.name }}</h6>              
+                            </div>                
+                        </div>    
+                    </div>
+                    <div class="mdl-cell mdl-cell--6-col">
+                        <div class="mdl-grid">
+                            <div class="mdl-cell mdl-cell--4-col">
+                                <h5>Prix HT</h5>
+                            </div>
+                            <div class="mdl-cell mdl-cell--4-col">
+                                <h5><input class="mdl-textfield__input" value="{{ sparePart.price }}" type="number" id="price" name="price"></h5>
+                            </div>
+                        </div>    
+
+                        <div class="mdl-grid">
+                            <div class="mdl-cell mdl-cell--4-col">
+                                <h5>Quantité</h5>
+                            </div>
+                            <div class="mdl-cell mdl-cell--4-col">
+                                <h5><input class="mdl-textfield__input" value="{{ sparePart.qty }}" type="number" id="qty" name="qty"></h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

@@ -2,14 +2,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const sparePartSchema = new Schema({
-    registered: {
+    part: {
         type: String,
-        required: true,
-        index: true
-    },
-    name: {
-        type: String,
-        required: false
+        required: true
     },
     car: {
         type: mongoose.Schema.Types.ObjectId,
@@ -28,7 +23,8 @@ const sparePartSchema = new Schema({
         required: false
     },
     photos: [{
-        type: String
+        type: String,
+        required: false
     }]
 }, {
     timestamps: true,

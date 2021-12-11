@@ -1,0 +1,131 @@
+{% extends 'index.twig' %}
+
+{% block content %}
+    <div class="mdl-typography--text-center">
+        <div class="mdl-typography--display-2-color-contrast">
+            <h4>Les pièces détachées</h4>
+        </div>
+        <div class="display-card">
+            <div class="mdl-card">
+                <div class="error">{{ error }}</div>
+                <form action="/spareParts/backOffice/add" method="post" enctype="multipart/form-data">
+                    <div class="flex-row">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <select class="mdl-textfield__input" id="category" name="category"></select>
+                            <label class="mdl-textfield__label" for="category">Catégorie</label>
+                        </div>
+                    </div>
+                    <div class="flex-row">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <select class="mdl-textfield__input" id="part" name="part"></select>
+                            <label class="mdl-textfield__label" for="part">Pièce</label>
+                        </div>
+                    </div>
+                    <div class="flex-row">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <select class="mdl-textfield__input" id="car" name="car">
+                                {% if cars is not null and cars is not empty %}
+                                    {% for car in cars %}
+                                        <option value="{{ car._id }}">{{ car.brand.name }} - {{ car.name }}</option>
+                                    {% endfor %}
+                                {% endif %}
+                            </select>
+                            <label class="mdl-textfield__label" for="car">Voiture</label>
+                        </div>
+                    </div>
+                    <div class="flex-row">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="number" id="price" name="price">
+                            <label class="mdl-textfield__label" for="price">Prix unitaire</label>
+                        </div>
+                    </div>
+
+                    <div class="flex-row">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="number" id="qty" name="qty">
+                            <label class="mdl-textfield__label" for="qty">Quantité disponible</label>
+                        </div>
+                    </div>
+
+                    <div class="flex-row">
+                        <button type="button" style="display:block;width:120px; height:30px;"
+                                onclick="document.getElementById('photos').click()">Choisir images
+                        </button>
+                        <input type="file" id="photos" name="photos" multiple accept="image/*" style="display:none">
+                    </div>
+                    <div class="flex-row">
+                        <div class="gallery">
+
+                        </div>
+                    </div>
+                    <br>
+                    <div class="flex-row">
+                        <a href="/spareParts/backOffice" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+                            <i class="material-icons">arrow_back</i>
+                            Retour
+                        </a> &nbsp;&nbsp;&nbsp;&nbsp; 
+                        <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+                            <i class="material-icons">save</i>
+                            Sauvegarder
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        {# function onChangePhoto() {
+            document.getElementById("filesnames").innerText = '- ' + Object.values(document.getElementById("photo").files).map(file => file.name).join('\n- ');
+        } #}
+
+        $("document").ready(function() {
+            let partsByCategories = {{ parts|json_encode() }};
+            partsByCategories.map(partsByCategory => partsByCategory.Category)
+                .forEach(category => {
+                    var opt = document.createElement("option");
+                    opt.text = category;
+                    opt.value = category;
+                    document.getElementById("category").add(opt);
+                });
+            document.getElementById("category").selectedIndex = "0";
+            partsByCategories[0].Parts.forEach(part => {
+                    var opt = document.createElement("option");
+                    opt.text = part;
+                    opt.value = part;
+                    document.getElementById("part").add(opt);
+                });
+            document.getElementById("part").selectedIndex = "0";
+
+            $("#category").change(function() {
+                let partsByCategories = {{ parts|json_encode() }};
+                document.getElementById("part").innerText = null;                
+                partsByCategories.filter(partsByCategory => partsByCategory.Category == this.value)[0]
+                    .Parts.forEach(part => {
+                        var opt = document.createElement("option");
+                        opt.text = part;
+                        opt.value = part;
+                        document.getElementById("part").add(opt);
+                    });
+            });
+        });
+
+        $('document').ready(function () {                    
+            $("#photos").change(function () {
+                if (this.files) {
+                    Object.values(this.files).forEach(file => {
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            var div = document.createElement('div');
+                            var img = document.createElement('img');
+                            img.src = e.target.result;
+                            div.appendChild(img);
+                            $('.gallery').append(div);
+                        }
+                        reader.readAsDataURL(file);
+                    });
+                }
+            });
+        });
+    </script>
+{% endblock %}
