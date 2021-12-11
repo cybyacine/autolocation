@@ -10,7 +10,8 @@
         <form action="/users/search" method="get">
             <div class="flex-row">
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" value="{{ search | default('') }}" type="text" id="search" name="search">
+                    <input class="mdl-textfield__input" value="{{ search | default('') }}" type="text" id="search"
+                           name="search">
                     <label class="mdl-textfield__label" for="search">Search</label>
                 </div>
                 <button type="submit" style="height: 50px"
@@ -61,6 +62,18 @@
             </tbody>
         </table>
     </div>
+
+    <script>
+        var socket = io();
+        socket.on('connection', function (data) {
+            data = JSON.parse(data);
+            if (data) {
+                const full_name = data.full_name ? data.full_name : '';
+                alert(full_name + ' is connect');
+            }
+        });
+    </script>
+
     <script>
         $(function () {
             $('#dataTable').DataTable({

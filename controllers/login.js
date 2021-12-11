@@ -17,7 +17,11 @@ async function login(req, res, next) {
             return res.render('auth/login.twig', {error: 'password incorrect'});
         }
         req.session.userId = user._id;
-        return res.redirect('/brands');
+        if(user.role === 'admin') {
+            return res.redirect('/users');
+        }else {
+            return res.redirect('/dashboard');
+        }
     } catch (e) {
         console.error(e);
         return res.render('auth/login.twig', {error: 'error'});

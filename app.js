@@ -43,7 +43,6 @@ app.use(
 app.use(async function (req, res, next) {
     // User auth
     const userId = req.session.userId;
-
     if (userId) {
         const user = await User.findById(userId);
         if (user) {
