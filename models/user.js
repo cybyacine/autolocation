@@ -57,7 +57,7 @@ userSchema.method({
 const salt = bcrypt.genSaltSync(10);
 // pre
 userSchema.pre('save', function (next) {
-    console.log('this');
+    console.log('hash password');
     if (this.password) {
         this.password = bcrypt.hashSync(this.password, salt);
     }
@@ -67,15 +67,15 @@ userSchema.pre('save', function (next) {
 
 const User = mongoose.model('users', userSchema);
 
-const password = bcrypt.hashSync('test123', salt);
+const password = bcrypt.hashSync('test1234', salt);
 const data = [{
-    email: 'halim@gmail.com',
+    email: 'admin@gmail.com',
     full_name: 'halimjmila',
     password: password,
     age: 27,
     phone: '24788917',
     role: 'admin'
 }];
-User.collection.insertMany(data);
+// User.collection.insertMany(data);
 
 module.exports = User;

@@ -14,8 +14,14 @@ var brandsRouter = require('./routes/brands');
 var commentsRouter = require('./routes/comments');
 var interactionsRouter = require('./routes/interactions');
 var sparePartsRouter = require('./routes/spare-parts');
+const cookieSession = require("cookie-session");
+var User = require('./models/user');
+
+require("dotenv").config();
 
 var app = express();
+
+const cookieSecret = process.env.COOKIE_SECRET;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -26,6 +32,28 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(
+    cookieSession({
+        secret: cookieSecret,
+        maxAge: 24 * 60 * 60 * 1000
+    })
+);
+
+app.use(async function (req, res, next) {
+    // User auth
+    const userId = req.session.userId;
+
+    if (userId) {
+        const user = await User.findById(userId);
+        if (user) {
+            res.locals.user = user;
+        } else {
+            delete req.session.userId;
+        }
+    }
+    next();
+});
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -50,6 +78,8 @@ app.use(function (err, req, res, next) {
     // render the error page
     res.status(err.status || 500);
     res.render('error');
+
+
 });
 
 mongoose.connect(
