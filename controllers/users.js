@@ -2,7 +2,6 @@ let User = require('../models/user');
 
 async function allUsers() {
     const users = await User.find({}, null, {sort: {createdAt: -1}});
-    console.log(users)
     return users;
 }
 
@@ -30,8 +29,13 @@ async function search(search) {
     return users;
 }
 
+async function findById(id) {
+    return User.findById(id);
+}
+
 module.exports = {
     allUsers,
     deleteUser,
     search,
+    findById,
 }
