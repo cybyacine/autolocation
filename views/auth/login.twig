@@ -1,0 +1,135 @@
+{% extends 'layout.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <link href="/stylesheets/login.css" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    <div class="mdl-layout mdl-js-layout">
+
+        <section class="container">
+            <div id="cube" class="show-front">
+                <figure class="front">
+                    <div class="mdl-card mdl-shadow--6dp">
+                        <form action="/login" method="post">
+                            <div class="mdl-card__title mdl-color--primary mdl-color-text--white relative">
+                                <h2 class="mdl-card__title-text">Welcome to autolocation</h2>
+                            </div>
+                            <div class="error">{{ error }}</div>
+                            <div class="mdl-card__supporting-text">
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <input type="email" class="mdl-textfield__input" name="email" id="email" required/>
+                                    <label class="mdl-textfield__label" for="email">Email/Login *</label>
+                                </div>
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <input class="mdl-textfield__input" minlength="8" type="password" name="password" id="password" required/>
+                                    <label class="mdl-textfield__label" for="password">Password *</label>
+                                </div>
+                            </div>
+
+                            <div class="mdl-card__actions mdl-card--border">
+                                <div class="mdl-grid">
+                                    <button type="submit" class="mdl-cell mdl-cell--12-col mdl-button mdl-button--raised mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
+                                        Login
+                                    </button>
+
+                                </div>
+
+                                <div class="mdl-grid">
+                                    <div class="mdl-cell mdl-cell--12-col">
+                                        <a onClick='flip("show-left")' class="mdl-color-text--primary">Sign up!</a>
+                                        <a onClick='flip("show-bottom")' class="mdl-color-text--primary"
+                                           style="float: right">Lost
+                                            Password?</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </figure>
+                <figure class="left">
+                    <div class="mdl-card mdl-shadow--6dp">
+                        <form action="/login/signup" method="post">
+                            <div class="mdl-card__title mdl-color--primary mdl-color-text--white relative">
+                                <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+                                   onClick='flip("show-front")'>
+                                    <i class="material-icons">arrow_back</i>
+                                </a>
+                                <h2 class="mdl-card__title-text">Sign up</h2>
+                            </div>
+
+                            <div class="mdl-card__supporting-text">
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <input type="email" class="mdl-textfield__input" name="email" id="email" required/>
+                                    <label class="mdl-textfield__label" for="email">Email/Login *</label>
+                                </div>
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <input class="mdl-textfield__input" minlength="8" type="password" name="password" id="password2" required/>
+                                    <label class="mdl-textfield__label" for="password2">Password *</label>
+                                </div>
+
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <input class="mdl-textfield__input" type="text" name="full_name" id="full_name" required/>
+                                    <label class="mdl-textfield__label" for="full_name">Full name *</label>
+                                </div>
+
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <input class="mdl-textfield__input" type="text" name="age" id="age" />
+                                    <label class="mdl-textfield__label" for="age">Age</label>
+                                </div>
+
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <input class="mdl-textfield__input" type="text" name="phone" id="phone" />
+                                    <label class="mdl-textfield__label" for="phone">Phone</label>
+                                </div>
+
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <input class="mdl-textfield__input" type="text" name="address" id="address" />
+                                    <label class="mdl-textfield__label" for="address">Address</label>
+                                </div>
+                            </div>
+
+                            <div class="mdl-card__actions mdl-card--border">
+                                <div class="mdl-grid">
+                                    <button type="submit" class="mdl-cell mdl-cell--12-col mdl-button mdl-button--raised mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
+                                        Sign up
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </figure>
+                <figure class="bottom">
+                    <div class="mdl-card mdl-shadow--6dp">
+                        <div class="mdl-card__title mdl-color--primary mdl-color-text--white relative">
+                            <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+                               onClick='flip("show-front")'>
+                                <i class="material-icons">arrow_back</i>
+                            </a>
+                            <h2 class="mdl-card__title-text">Lost Password</h2>
+                        </div>
+
+                        <div class="mdl-card__supporting-text">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <input class="mdl-textfield__input" type="email" id="email" required/>
+                                <label class="mdl-textfield__label" for="email">E-Mail</label>
+                            </div>
+                        </div>
+
+                        <div class="mdl-card__actions mdl-card--border">
+                            <div class="mdl-grid">
+                                <button class="mdl-cell mdl-cell--12-col mdl-button mdl-button--raised mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
+                                    Reset Password
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </figure>
+            </div>
+        </section>
+    </div>
+    <script src="/javascripts/login.js"></script>
+{% endblock %}

@@ -58,3 +58,19 @@
     font-size: 14px;
     font-weight: 500;
 }
+.button--delete{
+    color: red !important;
+}
+.flex-row-card-actions{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.mdl-textfield__label {
+    color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.mdl-textfield.is-invalid .mdl-textfield__input {
+    border-color: rgba(0, 0, 0, 0.5) !important;
+}
