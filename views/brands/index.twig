@@ -10,10 +10,24 @@
                 {% for brand in brands %}
                     <div class="wrapper-card">
                         <div class="demo-card-image mdl-card mdl-shadow--2dp"
-                        style="background: url({{ brand.logo }}) center / cover;">
+                             style="background: url({{ brand.logo }}) center / cover;">
                             <div class="mdl-card__title mdl-card--expand"></div>
                             <div class="mdl-card__actions">
-                                <span class="demo-card-image__filename">{{ brand.name }}</span>
+                                <div class="flex-row-card-actions">
+                                    <span class="demo-card-image__filename" style="min-width: 100px">{{ brand.name }}</span>
+                                    <a href="brands/edit/{{ brand._id }}"
+                                       style="padding: 0; min-width: auto"
+                                       class="mdl-button mdl-button--mini-icon mdl-js-button mdl-button--colored">
+                                        <i class="material-icons">edit</i>
+                                    </a>
+                                    <form method="post" action="brands/delete/{{ brand._id }}">
+                                        <button type="submit"
+                                                style="padding: 0; min-width: auto"
+                                                class="mdl-button mdl-button--mini-icon mdl-js-button mdl-button--colored">
+                                            <i class="material-icons button--delete">delete</i>
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
